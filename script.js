@@ -24,12 +24,15 @@ function loginRateLimiter(form_data) {
   });
   server_request.done(function (response, textStatus, jqXHR) {
     console.log("Hooray, it worked!");
-    console.log(response);
+    alert(JSON.parse(response).message);
   });
   server_request.fail(function (jqXHR, textStatus, errorThrown) {
-    console.error("The following error occurred: " + textStatus, errorThrown);
+    console.log("The following error occurred: " + textStatus, errorThrown);
+    // alert("The following error occurred: " + textStatus, errorThrown);
   });
-  server_request.always(function () {
+  server_request.always(function (response) {
+    response = response.responseJSON;
+    alert(response.message);
     $("#loginForm").find("input, button").prop("disabled", false);
   });
 }
